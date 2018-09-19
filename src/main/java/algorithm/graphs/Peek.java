@@ -6,64 +6,64 @@ import java.util.Objects;
 
 public class Peek<T> {
     private T value;
-    private List<Peek<T>> connectedTo;
-    private List<Peek<T>> connectedFrom;
-    private String specialCondition;
+    private List<Edge<T>> connectedTo;
+    private List<Edge<T>> connectedFrom;
 
     public Peek(T value) {
         this.value = value;
-        this.connectedTo = new LinkedList<Peek<T>>();
-        this.connectedFrom = new LinkedList<Peek<T>>();
-    }
-
-    public Peek(T value, String specialCondition) {
-        this.value = value;
-        this.connectedTo = new LinkedList<Peek<T>>();
-        this.connectedFrom = new LinkedList<Peek<T>>();
-        this.specialCondition = specialCondition;
+        this.connectedTo = new LinkedList<>();
+        this.connectedFrom = new LinkedList<>();
     }
 
     public T getValue() {
         return value;
     }
 
-    public List<Peek<T>> getConnectedTo() {
+    public List<Edge<T>> getConnectedTo() {
         return connectedTo;
     }
 
-    public List<Peek<T>> getConnectedFrom() {
+    public List<Edge<T>> getConnectedFrom() {
         return connectedFrom;
     }
 
     private String getConnectedToString() {
         StringBuilder sb = new StringBuilder();
-        for (Peek<T> tPeek : connectedTo) {
-            sb.append(tPeek.getValue().toString()).append(" ");
+        for (Edge<T> tEdge : connectedTo) {
+            sb.append(tEdge.getSecond().getValue().toString()).append(" - ").append(tEdge.getValue()).append(" ");
         }
         return sb.toString();
     }
 
     private String getConnectedFromString() {
         StringBuilder sb = new StringBuilder();
-        for (Peek<T> tPeek : connectedFrom) {
-            sb.append(tPeek.getValue().toString()).append(" ");
+        for (Edge<T> tEdge : connectedFrom) {
+            sb.append(tEdge.getFirst().getValue().toString()).append(" - ").append(tEdge.getValue()).append(" ");
         }
         return sb.toString();
     }
 
-    public void removeConnectionTo(Peek<T> value) {
+    public void removeConnectionTo(Edge<T> value) {
         connectedTo.remove(value);
     }
 
-    public void removeConnectionFrom(Peek<T> value) {
+    public void removeConnectionFrom(Edge<T> value) {
         connectedFrom.remove(value);
     }
 
     public void addConnectionTo(Peek<T> value) {
+        connectedTo.add(new Edge<>(this, value));
+    }
+
+    public void addConnectionTo(Edge<T> value) {
         connectedTo.add(value);
     }
 
     public void addConnectionFrom(Peek<T> value) {
+        connectedFrom.add(new Edge<>(value, this));
+    }
+
+    public void addConnectionFrom(Edge<T> value) {
         connectedFrom.add(value);
     }
 
@@ -71,7 +71,11 @@ public class Peek<T> {
         return connectedTo.size() != 0;
     }
 
-    public Peek<T> next() {
+    public boolean hasPrevious() {
+        return connectedFrom.size() != 0;
+    }
+
+    public Edge<T> next() {
         return connectedTo.iterator().next();
     }
 
@@ -79,16 +83,12 @@ public class Peek<T> {
         return connectedTo.size() + connectedFrom.size();
     }
 
-    public String getSpecialCondition() {
-        return specialCondition;
-    }
-
     @Override
     public String toString() {
         return "Peek{" +
                 "value=" + value +
-                ", connectedFROM=" + getConnectedFromString() +
                 ", connectedTO=" + getConnectedToString() +
+                ", connectedFROM=" + getConnectedFromString() +
                 '}';
     }
 

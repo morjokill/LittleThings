@@ -13,10 +13,11 @@ public class Cities {
             city = city.toLowerCase();
             char first = city.charAt(0);
             char last = city.charAt(city.length() - 1);
-            final Peek<Character> peek1 = new Peek<>(first, "FIRST");
-            final Peek<Character> peek2 = new Peek<>(last, "LAST");
-            peek1.addConnectionTo(peek2);
-            peek2.addConnectionFrom(peek1);
+            final Peek<Character> peek1 = new Peek<>(first);
+            final Peek<Character> peek2 = new Peek<>(last);
+            Edge<Character> edge = new Edge<>(peek1, peek2, city);
+            peek1.addConnectionTo(edge);
+            peek2.addConnectionFrom(edge);
             if (graph.containsKey(first)) {
                 graph.get(first).add(peek1);
             } else {
@@ -28,25 +29,31 @@ public class Cities {
                 graph.put(last, new LinkedList<Peek<Character>>(){{add(peek2);}});
             }
         }
+
         for (List<Peek<Character>> peeks : graph.values()) {
             for (Peek<Character> peek : peeks) {
-                if (peek.getSpecialCondition().equals("FIRST")) {
+                if (peek.hasNext()) {
                     List<Peek<Character>> list = graph.get(peek.getValue());
                     for (Peek<Character> characterPeek : list) {
-                        if (characterPeek.getSpecialCondition().equals("LAST")) {
-                            peek.addConnectionFrom(characterPeek);
+                        if (characterPeek != peek) {
+                            if (characterPeek.hasPrevious()) {
+                                peek.addConnectionFrom(characterPeek);
+                            }
                         }
                     }
                 } else {
                     List<Peek<Character>> list = graph.get(peek.getValue());
                     for (Peek<Character> characterPeek : list) {
-                        if (characterPeek.getSpecialCondition().equals("FIRST")) {
-                            peek.addConnectionTo(characterPeek);
+                        if (characterPeek != peek) {
+                            if (characterPeek.hasNext()) {
+                                peek.addConnectionTo(characterPeek);
+                            }
                         }
                     }
                 }
             }
         }
+
         for (Character character : graph.keySet()) {
             System.out.println(character);
             List<Peek<Character>> list = graph.get(character);
@@ -54,5 +61,7 @@ public class Cities {
                 System.out.println(characterPeek);
             }
         }
+
+        Graph<Character> graph1 = new Graph<>(graph);
     }
 }

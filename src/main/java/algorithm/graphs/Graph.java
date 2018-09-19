@@ -3,13 +3,13 @@ package algorithm.graphs;
 import java.util.*;
 
 public class Graph<T> {
-    private Map<T, Peek<T>> graph;
+    private Map<T, List<Peek<T>>> graph;
 
-    public Graph(Map<T, Peek<T>> graph) {
+    public Graph(Map<T, List<Peek<T>>> graph) {
         this.graph = graph;
     }
 
-    private int getEdgeCount(Map<T, Peek<T>> graph) {
+    private int getEdgeCount(Map<T, List<Peek<T>>> graph) {
         Iterator<Peek<T>> iterator = graph.values().iterator();
         Peek<T> cur;
         int sum = 0;
@@ -41,10 +41,10 @@ public class Graph<T> {
                 }
                 do {
                     if (cur.hasNext()) {
-                        Peek<T> next = cur.next();
-                        stack.push(new Edge<>(cur, next));
-                        next.removeConnectionFrom(cur);
-                        cur.removeConnectionTo(next);
+                        Peek<T> next = cur.next().getSecond();
+                        stack.push(cur.next());
+                        next.removeConnectionFrom(cur.next());
+                        cur.removeConnectionTo(cur.next());
                         cur = next;
                     } else {
                         return "No path here";
