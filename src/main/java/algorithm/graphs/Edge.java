@@ -1,5 +1,7 @@
 package algorithm.graphs;
 
+import java.util.Objects;
+
 public class Edge<T> {
     private String value;
     private Peek<T> first;
@@ -50,6 +52,14 @@ public class Edge<T> {
 
     public boolean isExist() {
         return exists;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        Edge<?> edge = (Edge<?>) o;
+        return (Objects.equals(first, edge.first) && Objects.equals(second, edge.second)) ||
+                (Objects.equals(first, edge.second) && Objects.equals(second, edge.first));
     }
 
     @Override
