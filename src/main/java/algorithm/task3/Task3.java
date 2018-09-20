@@ -1,3 +1,5 @@
+package algorithm.task3;
+
 import java.util.Random;
 
 public class Task3 {
