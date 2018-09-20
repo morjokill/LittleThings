@@ -1,67 +1,68 @@
 package algorithm.graphs;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Cities {
     public static void main(String[] args) {
-        String[] cities = new String[]{"Rostov", "Volgograd", "Dnepropetrovsk", "Riga", "Piter"};
-        Map<Character, List<Peek<Character>>> graph = new HashMap<>();
+        String[] cities = new String[]{"Krim", "Kazan", "Nizhnekamsk", "Moskva", "Amsterdam"};
+        Map<Character, Peek<Character>> graph = new HashMap<>();
         for (String city : cities) {
             city = city.toLowerCase();
             char first = city.charAt(0);
             char last = city.charAt(city.length() - 1);
-            final Peek<Character> peek1 = new Peek<>(first);
-            final Peek<Character> peek2 = new Peek<>(last);
-            Edge<Character> edge = new Edge<>(peek1, peek2, city);
-            peek1.addConnectionTo(edge);
-            peek2.addConnectionFrom(edge);
-            if (graph.containsKey(first)) {
-                graph.get(first).add(peek1);
+            Peek<Character> firstPeek;
+            Peek<Character> lastPeek;
+            if (!graph.containsKey(first)) {
+                firstPeek = new Peek<>(first);
+                graph.put(first, firstPeek);
             } else {
-                graph.put(first, new LinkedList<Peek<Character>>(){{add(peek1);}});
+                firstPeek = graph.get(first);
             }
-            if (graph.containsKey(last)) {
-                graph.get(last).add(peek2);
+            if (!graph.containsKey(last)) {
+                lastPeek = new Peek<>(last);
+                graph.put(last, lastPeek);
             } else {
-                graph.put(last, new LinkedList<Peek<Character>>(){{add(peek2);}});
+                lastPeek = graph.get(last);
             }
+            Edge<Character> edge = new Edge<>(graph.get(first), graph.get(last), city);
+            firstPeek.addConnectionTo(edge);
+            lastPeek.addConnectionFrom(edge);
         }
 
-        for (List<Peek<Character>> peeks : graph.values()) {
-            for (Peek<Character> peek : peeks) {
-                if (peek.hasNext()) {
-                    List<Peek<Character>> list = graph.get(peek.getValue());
-                    for (Peek<Character> characterPeek : list) {
-                        if (characterPeek != peek) {
-                            if (characterPeek.hasPrevious()) {
-                                peek.addConnectionFrom(characterPeek);
-                            }
-                        }
-                    }
-                } else {
-                    List<Peek<Character>> list = graph.get(peek.getValue());
-                    for (Peek<Character> characterPeek : list) {
-                        if (characterPeek != peek) {
-                            if (characterPeek.hasNext()) {
-                                peek.addConnectionTo(characterPeek);
-                            }
-                        }
-                    }
+        Graph<Character> graph1 = new Graph<>();
+        Peek<Character> pathPeek = null;
+        boolean pathFound = false;
+        List<Edge<Character>> path = null;
+
+        for (Character character : graph.keySet()) {
+            System.out.println(character);
+            Peek<Character> peek = graph.get(character);
+            System.out.println(peek);
+        }
+
+        for (Character character : graph.keySet()) {
+            Peek<Character> peek = graph.get(character);
+            path = graph1.findEilPath(graph, peek);
+            if (Objects.nonNull(path)) {
+                pathFound = true;
+                pathPeek = peek;
+                break;
+            } else {
+                for (Peek<Character> characterPeek : graph.values()) {
+                    characterPeek.reset();
                 }
             }
         }
 
-        for (Character character : graph.keySet()) {
-            System.out.println(character);
-            List<Peek<Character>> list = graph.get(character);
-            for (Peek<Character> characterPeek : list) {
-                System.out.println(characterPeek);
+        System.out.println();
+        if (pathFound) {
+            ListIterator<Edge<Character>> revIterator = path.listIterator(path.size());
+            System.out.println("PATH FOUND FOR CHARACTER: " + pathPeek.getValue());
+            while (revIterator.hasPrevious()) {
+                System.out.print(revIterator.previous().getValue() + " - ");
             }
+        } else {
+            System.out.println("NO PATH");
         }
-
-        Graph<Character> graph1 = new Graph<>(graph);
     }
 }

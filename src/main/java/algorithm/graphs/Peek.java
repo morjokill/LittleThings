@@ -44,15 +44,21 @@ public class Peek<T> {
     }
 
     public void removeConnectionTo(Edge<T> value) {
-        connectedTo.remove(value);
+        int index = connectedTo.indexOf(value);
+        connectedTo.get(index).remove();
     }
 
     public void removeConnectionFrom(Edge<T> value) {
-        connectedFrom.remove(value);
+        int index = connectedFrom.indexOf(value);
+        connectedFrom.get(index).remove();
     }
 
     public void addConnectionTo(Peek<T> value) {
         connectedTo.add(new Edge<>(this, value));
+    }
+
+    public void addConnectionTo(Peek<T> value, String edgeValue) {
+        connectedTo.add(new Edge<>(this, value, edgeValue));
     }
 
     public void addConnectionTo(Edge<T> value) {
@@ -63,24 +69,52 @@ public class Peek<T> {
         connectedFrom.add(new Edge<>(value, this));
     }
 
+    public void addConnectionFrom(Peek<T> value, String edgeValue) {
+        connectedFrom.add(new Edge<>(value, this, edgeValue));
+    }
+
     public void addConnectionFrom(Edge<T> value) {
         connectedFrom.add(value);
     }
 
     public boolean hasNext() {
-        return connectedTo.size() != 0;
+        for (Edge<T> edge : connectedTo) {
+            if (edge.isExist()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasPrevious() {
-        return connectedFrom.size() != 0;
+        for (Edge<T> edge : connectedFrom) {
+            if (edge.isExist()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Edge<T> next() {
-        return connectedTo.iterator().next();
+        for (Edge<T> edge : connectedTo) {
+            if (edge.isExist()) {
+                return edge;
+            }
+        }
+        return null;
     }
 
     public int countST() {
         return connectedTo.size() + connectedFrom.size();
+    }
+
+    public void reset() {
+        for (Edge<T> edge : connectedTo) {
+            edge.reset();
+        }
+        for (Edge<T> edge : connectedFrom) {
+            edge.reset();
+        }
     }
 
     @Override
