@@ -55,14 +55,6 @@ public class Edge<T> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        Edge<?> edge = (Edge<?>) o;
-        return (Objects.equals(first, edge.first) && Objects.equals(second, edge.second)) ||
-                (Objects.equals(first, edge.second) && Objects.equals(second, edge.first));
-    }
-
-    @Override
     public String toString() {
         return "Edge{" +
                 "value='" + value + '\'' +
