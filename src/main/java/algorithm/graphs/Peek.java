@@ -3,6 +3,7 @@ package algorithm.graphs;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class Peek<T> {
     private T value;
@@ -117,9 +118,10 @@ public class Peek<T> {
         }
     }
 
-    public Edge<T> getConnectingEdge(Peek<T> otherPeek) {
+    public Edge<T> getConnectingEdge(Peek<T> otherPeek, Set<Integer> excludedIndexes) {
         for (Edge<T> edge : connectedTo) {
-            if (edge.getOther(this).equals(otherPeek)) {
+            if (edge.getOther(this).equals(otherPeek) &&
+                    !excludedIndexes.contains(Integer.valueOf(edge.getValue().split(" ")[3]))) {
                 return edge;
             }
         }

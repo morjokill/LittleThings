@@ -87,13 +87,15 @@ public class Trap {
                 }
                 if (pathFoundForPeeks) {
                     System.out.println("PATH FOUND FOR ANGLE: " + pathPeekForPeeks.getValue());
+                    Set<Integer> excludedIndexes = new HashSet<>();
                     for (int i = pathPeeks.size() - 1; i > 0; i--) {
 //                        System.out.println("|" + pathPeeks.get(i).getValue() + " | " + pathPeeks.get(i - 1).getValue() + "|");
 
-                        Edge<Integer> connectingEdge = pathPeeks.get(i).getConnectingEdge(pathPeeks.get(i - 1));
+                        Edge<Integer> connectingEdge = pathPeeks.get(i).getConnectingEdge(pathPeeks.get(i - 1), excludedIndexes);
                         String[] separatedValue = connectingEdge.getValue().split(" ");
                         String trapezeLine = "|" + "a = " + separatedValue[0] + ", b = " + separatedValue[1] + ", c - d = " +
                                 separatedValue[2] + ", index = " + separatedValue[3] + "|";
+                        excludedIndexes.add(Integer.valueOf(separatedValue[3]));
                         System.out.println(trapezeLine);
 
                     }
