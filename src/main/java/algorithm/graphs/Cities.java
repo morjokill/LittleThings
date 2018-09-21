@@ -40,9 +40,10 @@ public class Cities {
             System.out.println(peek);
         }
 
+        System.out.println();
         for (Character character : graph.keySet()) {
             Peek<Character> peek = graph.get(character);
-            path = graph1.findEilPath(graph, peek);
+            path = graph1.findEilPath(graph, peek, graph1.getEdgeCount(graph, true));
             if (Objects.nonNull(path)) {
                 pathFound = true;
                 pathPeek = peek;

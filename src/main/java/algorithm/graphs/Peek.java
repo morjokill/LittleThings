@@ -30,7 +30,7 @@ public class Peek<T> {
     private String getConnectedToString() {
         StringBuilder sb = new StringBuilder();
         for (Edge<T> tEdge : connectedTo) {
-            sb.append(tEdge.getSecond().getValue().toString()).append(" - ").append(tEdge.getValue()).append(" ");
+            sb.append(tEdge.getSecond().getValue().toString()).append(" - ").append(tEdge.getValue()).append(", ");
         }
         return sb.toString();
     }
@@ -38,7 +38,7 @@ public class Peek<T> {
     private String getConnectedFromString() {
         StringBuilder sb = new StringBuilder();
         for (Edge<T> tEdge : connectedFrom) {
-            sb.append(tEdge.getFirst().getValue().toString()).append(" - ").append(tEdge.getValue()).append(" ");
+            sb.append(tEdge.getFirst().getValue().toString()).append(" - ").append(tEdge.getValue()).append(", ");
         }
         return sb.toString();
     }
@@ -117,13 +117,27 @@ public class Peek<T> {
         }
     }
 
+    public Edge<T> getConnectingEdge(Peek<T> otherPeek) {
+        for (Edge<T> edge : connectedTo) {
+            if (edge.getOther(this).equals(otherPeek)) {
+                return edge;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
-        return "Peek{" +
-                "value=" + value +
-                ", connectedTO=" + getConnectedToString() +
-                ", connectedFROM=" + getConnectedFromString() +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Peek{" + "value=").append(value);
+        if (!connectedTo.isEmpty()) {
+            sb.append("; connectedTO=").append(getConnectedToString());
+        }
+        if (!connectedFrom.isEmpty()) {
+            sb.append("; connectedFROM=").append(getConnectedFromString());
+        }
+        sb.append('}');
+        return sb.toString();
     }
 
     @Override

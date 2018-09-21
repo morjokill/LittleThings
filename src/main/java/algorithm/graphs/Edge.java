@@ -1,7 +1,5 @@
 package algorithm.graphs;
 
-import java.util.Objects;
-
 public class Edge<T> {
     private String value;
     private Peek<T> first;
@@ -15,7 +13,7 @@ public class Edge<T> {
     }
 
 
-    Edge(Peek<T> first, Peek<T> second, String value) {
+    public Edge(Peek<T> first, Peek<T> second, String value) {
         this.value = value;
         this.first = first;
         this.second = second;
@@ -32,6 +30,16 @@ public class Edge<T> {
 
     public Peek<T> getSecond() {
         return second;
+    }
+
+    public Peek<T> getOther(Peek<T> peek) {
+        if (first.equals(peek)) {
+            return second;
+        }
+        if (second.equals(peek)) {
+            return first;
+        }
+        return null;
     }
 
     public void setValue(String value) {

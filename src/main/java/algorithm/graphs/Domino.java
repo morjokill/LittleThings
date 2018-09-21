@@ -4,14 +4,13 @@ import java.util.*;
 
 public class Domino {
     public static void main(String[] args) {
-        int[] dominoes = new int[]{0, 3, 4, 5, 3, 5};
+        int[] dominoes = new int[]{6, 4, 5, 4, 4, 2, 2, 6};
         Map<Integer, Peek<Integer>> graph = new HashMap<>();
         if (dominoes.length % 2 == 0) {
             for (int i = 0; i < dominoes.length; i = i + 2) {
                 int first = dominoes[i];
                 int last = dominoes[i + 1];
                 String firstString = "|" + first + " | " + last + "|";
-                String secondString = "|" + last + " | " + first + "|";
                 System.out.println(firstString);
                 Peek<Integer> firstPeek;
                 Peek<Integer> lastPeek;
@@ -28,11 +27,10 @@ public class Domino {
                     lastPeek = graph.get(last);
                 }
                 Edge<Integer> edgeTo = new Edge<>(graph.get(first), graph.get(last), firstString);
-                Edge<Integer> edgeFrom = new Edge<>(graph.get(last), graph.get(first), secondString);
                 firstPeek.addConnectionTo(edgeTo);
-                firstPeek.addConnectionFrom(edgeFrom);
+                firstPeek.addConnectionFrom(edgeTo);
                 lastPeek.addConnectionTo(edgeTo);
-                lastPeek.addConnectionFrom(edgeFrom);
+                lastPeek.addConnectionFrom(edgeTo);
             }
 
             for (Integer integer : graph.keySet()) {
@@ -42,30 +40,31 @@ public class Domino {
             }
 
             Graph<Integer> graph1 = new Graph<>();
-            Peek<Integer> pathPeek = null;
-            boolean pathFound = false;
-            List<Edge<Integer>> path = null;
+            List<Peek<Integer>> pathPeeks = null;
+            boolean pathFoundForPeeks = false;
+            Peek<Integer> pathPeekForPeeks = null;
 
-            for (Integer integer : graph.keySet()) {
-                Peek<Integer> peek = graph.get(integer);
-                path = graph1.findEilPath(graph, peek);
-                if (Objects.nonNull(path)) {
-                    pathFound = true;
-                    pathPeek = peek;
-                    break;
-                } else {
-                    for (Peek<Integer> integerPeek : graph.values()) {
-                        integerPeek.reset();
+            for (Peek<Integer> integerPeek : graph.values()) {
+                System.out.println();
+                System.out.println("FINDING PATH FOR: " + integerPeek.getValue());
+                pathPeeks = graph1.findEilCircle(graph, integerPeek);
+                if (Objects.nonNull(pathPeeks)) {
+                    if (pathPeeks.get(0).equals(pathPeeks.get(pathPeeks.size() - 1))) {
+                        pathFoundForPeeks = true;
+                        pathPeekForPeeks = integerPeek;
+                        break;
                     }
+                }
+                for (Peek<Integer> peek : graph.values()) {
+                    peek.reset();
                 }
             }
 
             System.out.println();
-            if (pathFound) {
-                ListIterator<Edge<Integer>> revIterator = path.listIterator(path.size());
-                System.out.println("PATH FOUND FOR INTEGER: " + pathPeek.getValue());
-                while (revIterator.hasPrevious()) {
-                    System.out.print(revIterator.previous().getValue() + " - ");
+            if (pathFoundForPeeks) {
+                System.out.println("PATH FOUND FOR INTEGER: " + pathPeekForPeeks.getValue());
+                for (int i = pathPeeks.size() - 1; i > 0; i--) {
+                    System.out.println("|" + pathPeeks.get(i).getValue() + " | " + pathPeeks.get(i - 1).getValue() + "|");
                 }
             } else {
                 System.out.println("NO PATH");
