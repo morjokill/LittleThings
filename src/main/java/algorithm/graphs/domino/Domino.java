@@ -1,4 +1,8 @@
-package algorithm.graphs;
+package algorithm.graphs.domino;
+
+import algorithm.graphs.Edge;
+import algorithm.graphs.Graph;
+import algorithm.graphs.Peek;
 
 import java.util.*;
 

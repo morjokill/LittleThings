@@ -89,8 +89,6 @@ public class Trap {
                     System.out.println("PATH FOUND FOR ANGLE: " + pathPeekForPeeks.getValue());
                     Set<Integer> excludedIndexes = new HashSet<>();
                     for (int i = pathPeeks.size() - 1; i > 0; i--) {
-//                        System.out.println("|" + pathPeeks.get(i).getValue() + " | " + pathPeeks.get(i - 1).getValue() + "|");
-
                         Edge<Integer> connectingEdge = pathPeeks.get(i).getConnectingEdge(pathPeeks.get(i - 1), excludedIndexes);
                         String[] separatedValue = connectingEdge.getValue().split(" ");
                         String trapezeLine = "|" + "a = " + separatedValue[0] + ", b = " + separatedValue[1] + ", c - d = " +
