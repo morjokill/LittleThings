@@ -1,5 +1,9 @@
 package algorithm.graphs.median;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Median {
     public static void main(String[] args) {
         int[][] graph = new int[][]{
@@ -9,6 +13,16 @@ public class Median {
                 {-1, -1, 0, -1}, //2
                 {-1, -1, 1, 0} //3
         };
+
+        int[] vST = new int[graph.length];
+        for (int i = 0; i < graph.length; i++) {
+            for (int j = 0; j < graph.length; j++) {
+                if (graph[i][j] != -1 && graph[i][j] != 0) {
+                    vST[i]++;
+                }
+            }
+        }
+
         int[][] minPath = new int[graph.length][graph[0].length];
         for (int i = 0; i < minPath.length; i++) {
             for (int j = 0; j < minPath.length; j++) {
@@ -134,6 +148,30 @@ public class Median {
         }
         if (innerCenter != -1) {
             System.out.println("INNER CENTER: " + innerCenter);
+        }
+
+        System.out.println();
+        System.out.println("ST: ");
+        System.out.println(Arrays.toString(vST));
+
+        List<Integer> unevenList = new ArrayList<>();
+        int unevenCount = 0;
+        for (int i : vST) {
+            if (i % 2 == 1) {
+                unevenCount++;
+                unevenList.add(i);
+            }
+        }
+
+        if (unevenCount % 2 == 0) {
+            if (unevenCount >= 2 && unevenCount <= 6) {
+                System.out.println("NEED TO BUILD EIL");
+                for (int i = 0; i < unevenList.size(); i++) {
+
+                }
+            }
+        } else {
+            System.out.println("UNREAL TO BUILD EIL");
         }
     }
 }
