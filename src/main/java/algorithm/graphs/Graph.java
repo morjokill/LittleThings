@@ -58,7 +58,7 @@ public class Graph<T> {
                 edge.getOther(cur).removeConnectionFrom(edge);
             }
             if (cur.equals(stack.peek())) {
-                System.out.println("EDGE FROM STACK: " + stack.peek().toString());
+//                System.out.println("EDGE FROM STACK: " + stack.peek().toString());
                 result.add(stack.pop());
             }
         }
