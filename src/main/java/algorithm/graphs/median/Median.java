@@ -169,6 +169,8 @@ public class Median {
                 for (int i = 0; i < unevenList.size(); i++) {
 
                 }
+            } else {
+                System.out.println("TOO MUCH UNEVEN PEEKS");
             }
         } else {
             System.out.println("UNREAL TO BUILD EIL");
