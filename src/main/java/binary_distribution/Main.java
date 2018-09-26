@@ -1,4 +1,4 @@
-package binaryDistribution;
+package binary_distribution;
 
 public class Main {
     public static void main(String[] args) {

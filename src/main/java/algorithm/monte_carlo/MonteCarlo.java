@@ -1,4 +1,4 @@
-package algorithm.montecarlo;
+package algorithm.monte_carlo;
 
 import java.util.Random;
 
