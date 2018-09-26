@@ -1,8 +1,8 @@
-package algorithm.task3;
+package algorithm.montecarlo;
 
 import java.util.Random;
 
-public class Task3 {
+public class MonteCarlo {
     public static void main(String[] args) {
         int n = 5;
         int accuracy = 1000000;

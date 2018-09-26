@@ -1,4 +1,4 @@
-package algorithm.task2;
+package algorithm.median;
 
 public class ArrayPivot {
     private int[] array;

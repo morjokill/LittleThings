@@ -1,9 +1,9 @@
-package algorithm.task2;
+package algorithm.median;
 
 import java.util.Arrays;
 import java.util.Random;
 
-public class Task2 {
+public class Median {
     public static void main(String[] args) {
         int[] array = new int[]{5, 3, 2, 4, 6, 1, 7, 8};
         if (array.length % 2 != 0) {
