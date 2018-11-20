@@ -2,7 +2,7 @@ package algorithm.dynamic.LCS;
 
 import java.util.Arrays;
 
-public class MCS {
+public class LCS {
     private static char[] seq1 = "Hello".toCharArray();
     private static char[] seq2 = "ella".toCharArray();
 
