@@ -1,4 +1,4 @@
-package algorithm.dynamic.LCS;
+package algorithm.dynamic.seq;
 
 import java.util.Arrays;
 
