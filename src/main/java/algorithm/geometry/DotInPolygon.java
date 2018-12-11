@@ -11,13 +11,7 @@ public class DotInPolygon {
 
         double polygonArea = 0;
         for (int i = 1; i < polygonX.length - 1; i++) {
-            double distA = getDistAB(polygonX[0], polygonY[0], polygonX[i], polygonY[i]);
-            double distB = getDistAB(polygonX[0], polygonY[0], polygonX[i + 1], polygonY[i + 1]);
-            double distC = getDistAB(polygonX[i], polygonY[i], polygonX[i + 1], polygonY[i + 1]);
-            double halfPerimeter = getHalfPerimeter(distA, distB, distC);
-            double triangleArea = getTriangleArea(halfPerimeter, distA, distB, distC);
-            System.out.println("i: " + i + " triangle area: " + triangleArea);
-            polygonArea += triangleArea;
+            polygonArea = getPolygonFromDotArea(polygonX[0], polygonY[0], polygonX, polygonY, polygonArea, i, i + 1);
         }
         System.out.println(polygonArea);
 
@@ -30,13 +24,7 @@ public class DotInPolygon {
             } else {
                 next = 0;
             }
-            double distA = getDistAB(Ox, Oy, polygonX[i], polygonY[i]);
-            double distB = getDistAB(Ox, Oy, polygonX[next], polygonY[next]);
-            double distC = getDistAB(polygonX[i], polygonY[i], polygonX[next], polygonY[next]);
-            double halfPerimeter = getHalfPerimeter(distA, distB, distC);
-            double triangleArea = getTriangleArea(halfPerimeter, distA, distB, distC);
-            System.out.println("i: " + i + " triangle area: " + triangleArea);
-            polygonFromDotArea += triangleArea;
+            polygonFromDotArea = getPolygonFromDotArea(Ox, Oy, polygonX, polygonY, polygonFromDotArea, i, next);
         }
         System.out.println(polygonFromDotArea);
 
@@ -47,6 +35,17 @@ public class DotInPolygon {
         } else {
             System.out.println("Dot not in polygon");
         }
+    }
+
+    private static double getPolygonFromDotArea(int ox, int oy, int[] polygonX, int[] polygonY, double polygonFromDotArea, int i, int next) {
+        double distA = getDistAB(ox, oy, polygonX[i], polygonY[i]);
+        double distB = getDistAB(ox, oy, polygonX[next], polygonY[next]);
+        double distC = getDistAB(polygonX[i], polygonY[i], polygonX[next], polygonY[next]);
+        double halfPerimeter = getHalfPerimeter(distA, distB, distC);
+        double triangleArea = getTriangleArea(halfPerimeter, distA, distB, distC);
+        System.out.println("i: " + i + " triangle area: " + triangleArea);
+        polygonFromDotArea += triangleArea;
+        return polygonFromDotArea;
     }
 
     private static double getDistAB(int Ax, int Ay, int Bx, int By) {
