@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Bags {
     public static void main(String[] args) {
         int[] input = new int[]{
-                31,
+                15,
                 3, 20,
                 5, 32,
                 6, 2,

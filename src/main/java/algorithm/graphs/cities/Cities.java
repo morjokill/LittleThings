@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Cities {
     public static void main(String[] args) {
-        String[] cities = new String[]{"Krim", "Kazan", "Nizhnekamsk", "Moskva", "Amsterdam"};
+        String[] cities = new String[]{"Kn", "So", "Ok"};
         Map<Character, Peek<Character>> graph = new HashMap<>();
         for (String city : cities) {
             city = city.toLowerCase();
