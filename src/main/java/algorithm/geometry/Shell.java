@@ -7,17 +7,17 @@ import java.util.List;
 
 public class Shell {
     public static void main(String[] args) {
-        int test = 100;
+        int test = 1;
         Long grahamTime = 0L;
         Long quickHullTime = 0L;
         for (int testCount = 0; testCount < test; testCount++) {
-            int n = 2000;
+            int n = 500;
 
             Set<Dot> set = new HashSet<>();
             Random random = new Random();
             for (int i = 0; i < n; i++) {
-                int random1 = random.nextInt(350 - 1) + 1;
-                int random2 = random.nextInt(350 - 1) + 1;
+                int random1 = random.nextInt(200 - 1) + 1;
+                int random2 = random.nextInt(200 - 1) + 1;
                 Dot dot = new Dot(random1, random2);
                 set.add(dot);
             }
@@ -43,7 +43,7 @@ public class Shell {
             long quickHullTime1 = afterQ - beforeQ;
             quickHullTime += quickHullTime1;
 
-//        showFrame(x, y, grahamScan, quickHull);
+        showFrame(x, y, grahamScan, quickHull);
         }
 
         System.out.println("grahamTime " + grahamTime + " (ms)");
@@ -68,13 +68,13 @@ public class Shell {
                     graphics.drawChars((x[i] + " " + y[i]).toCharArray(), 0, (x[i] + " " + y[i]).toCharArray().length, x1, y1);
                 }
                 for (Dot dot : grahamScan) {
-                    int x1 = 600 + (dot.getX()) * scale;
+                    int x1 = 400 + (dot.getX()) * scale;
                     int y1 = 40 + (dot.getY()) * scale;
                     graphics.fillOval(x1, y1, 10, 10);
                     graphics.drawChars((dot.getX() + " " + dot.getY()).toCharArray(), 0, (dot.getX() + " " + dot.getY()).toCharArray().length, x1, y1);
                 }
                 for (Dot dot : quickHull) {
-                    int x1 = 1200 + (dot.getX()) * scale;
+                    int x1 = 800 + (dot.getX()) * scale;
                     int y1 = 40 + (dot.getY()) * scale;
                     graphics.fillOval(x1, y1, 10, 10);
                     graphics.drawChars((dot.getX() + " " + dot.getY()).toCharArray(), 0, (dot.getX() + " " + dot.getY()).toCharArray().length, x1, y1);

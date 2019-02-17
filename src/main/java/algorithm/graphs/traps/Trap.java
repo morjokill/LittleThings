@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Trap {
     public static void main(String[] args) {
-        boolean isOriented = false;
+        boolean isOriented = true;
         Scanner scIn = null;
         FileWriter scOut = null;
         for (int fileN = 1; fileN <= 9; fileN++) {

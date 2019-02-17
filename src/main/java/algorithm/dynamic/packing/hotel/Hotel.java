@@ -11,7 +11,7 @@ public class Hotel {
                 3, 5, 150,
                 2, 4, 20,
                 1, 2, 200,
-                4, 6, 20,
+                4, 10, 20,
                 2, 5, 100,
         };
         System.out.println(Arrays.toString(input));
