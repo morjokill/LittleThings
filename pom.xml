@@ -68,8 +68,6 @@
             <version>9.1-901-1.jdbc4</version>
         </dependency>
 
-
-
         <!-- Porters stem -->
         <dependency>
             <groupId>org.apache.opennlp</groupId>
@@ -83,7 +81,11 @@
             <artifactId>mystem-scala</artifactId>
             <version>0.1.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.1.4.RELEASE</version>
+        </dependency>
     </dependencies>
-
-
 </project>
