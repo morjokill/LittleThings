@@ -35,5 +35,6 @@ public class Dao {
         return (List<User>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("FROM User").list();
     }
 
-
+    //PROCEDURE CALL
+    //String bookName = (String)session.createSQLQuery("{? = call get_book_name_by_id (:id)}").setLong("id",1).uniqueResult();
 }
