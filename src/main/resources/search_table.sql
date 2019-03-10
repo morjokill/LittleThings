@@ -39,3 +39,5 @@ INSERT INTO article_term SELECT
   m2.articles_id article_id,
   tl.term_id term_id
 FROM terms_list tl INNER JOIN words_mystem m2 on tl.term_text = m2.term;
+
+ALTER TABLE article_term ADD COLUMN tf_idf DOUBLE PRECISION DEFAULT 0.0
