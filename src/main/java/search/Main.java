@@ -1,10 +1,12 @@
 package search;
 
+import ru.stachek66.nlp.mystem.holding.MyStemApplicationException;
+
 import java.sql.SQLException;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, MyStemApplicationException {
         System.out.println("Type your search request");
         Scanner sc = new Scanner(System.in);
 
@@ -15,6 +17,7 @@ public class Main {
 
         List<Set<Article>> list = new LinkedList<>();
         for (String word : words) {
+            word = string_split.Main.myStemAnalyze(word);
             Set<Article> articles = Dao.getArticles(word);
             list.add(articles);
         }

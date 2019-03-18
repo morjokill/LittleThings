@@ -1,5 +1,6 @@
 package tf_idf;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.Types;
@@ -24,13 +25,18 @@ public class Dao {
     private static final String SQL_GET_ALL_ARTICLES_COUNT = "SELECT count(*) FROM articles;";
 
     //Количество статей со словом term
-    private static final String SQL_GET_ALL_ARTICLES_WITH_WORD_TERM = "SELECT count(*) FROM (SELECT term, articles_id FROM words_mystem WHERE" +
+    private static final String SQL_GET_ALL_ARTICLES_COUNT_WITH_WORD_TERM = "SELECT count(*) FROM (SELECT term, articles_id FROM words_mystem WHERE" +
             " term = ? GROUP BY term, articles_id) AS a;";
 
     private static final String UPDATE_TF_IDF_FOR_ARTICLE_TERM = "UPDATE article_term SET tf_idf = ? WHERE article_id = ? AND term_id = ?;";
 
-    private static final String SQL_GET_TERM_ID = "SELECT DISTINCT at.term_id FROM article_term at INNER JOIN terms_list " +
+    private static final String SQL_GET_TERM_ID_IN_ARTICLE = "SELECT DISTINCT at.term_id FROM article_term at INNER JOIN terms_list " +
             "list2 on at.term_id = list2.term_id WHERE article_id = ? AND term_text = ?;";
+
+    private static final String SQL_GET_ALL_ARTICLES_WITH_WORD_TERM = "SELECT term, articles_id FROM words_mystem WHERE" +
+            " term = ? GROUP BY term, articles_id;";
+
+    private static final String SQL_GET_TF_IDF_FOR_TERM_IN_ARTICLE = "SELECT tf_idf FROM article_term WHERE term_id = ? AND article_id = ?;";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -60,14 +66,22 @@ public class Dao {
     }
 
     public Integer getAllArticlesCountWithWordTerm(String term) {
-        return jdbcTemplate.queryForObject(SQL_GET_ALL_ARTICLES_WITH_WORD_TERM, new Object[]{term}, Integer.class);
+        return jdbcTemplate.queryForObject(SQL_GET_ALL_ARTICLES_COUNT_WITH_WORD_TERM, new Object[]{term}, Integer.class);
     }
 
     public String getTermIdByArticleIdAndTerm(String articleId, String term) {
-        return jdbcTemplate.queryForObject(SQL_GET_TERM_ID, new Object[]{articleId, term}, new int[]{Types.OTHER, Types.VARCHAR}, String.class);
+        return jdbcTemplate.queryForObject(SQL_GET_TERM_ID_IN_ARTICLE, new Object[]{articleId, term}, new int[]{Types.OTHER, Types.VARCHAR}, String.class);
     }
 
     public void updateTfIdf(Double tfIdf, String articleId, String termId) {
         jdbcTemplate.update(UPDATE_TF_IDF_FOR_ARTICLE_TERM, new Object[]{tfIdf, articleId, termId}, new int[]{Types.DOUBLE, Types.OTHER, Types.OTHER});
+    }
+
+    public double getTfIdfForTermInArticle(String termId, String articleId) {
+        return jdbcTemplate.queryForObject(SQL_GET_TF_IDF_FOR_TERM_IN_ARTICLE, new Object[]{termId, articleId}, new int[]{Types.OTHER, Types.OTHER}, Double.class);
+    }
+
+    public List<Article> getArticlesWithWordTerm(String term) {
+        return jdbcTemplate.query(SQL_GET_ALL_ARTICLES_WITH_WORD_TERM, new Object[]{term}, new BeanPropertyRowMapper<>(Article.class));
     }
 }

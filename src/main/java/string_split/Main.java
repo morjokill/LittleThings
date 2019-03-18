@@ -76,7 +76,7 @@ public class Main {
         return portersStem.stem(word).toString();
     }
 
-    private static String myStemAnalyze(String word) throws MyStemApplicationException {
+    public static String myStemAnalyze(String word) throws MyStemApplicationException {
         StringBuilder resultString = new StringBuilder();
         Iterable<Info> result = JavaConversions.asJavaIterable(myStemAnalyzer
                 .analyze(Request.apply(word))
