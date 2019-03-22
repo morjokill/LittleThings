@@ -28,6 +28,7 @@
         <module>search_homework</module>
         <module>bus_parser</module>
         <module>retrofit</module>
+        <module>jdbi</module>
     </modules>
 
     <dependencies>
