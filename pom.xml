@@ -29,6 +29,7 @@
         <module>bus_parser</module>
         <module>retrofit</module>
         <module>jdbi</module>
+        <module>ok_http</module>
     </modules>
 
     <dependencies>
