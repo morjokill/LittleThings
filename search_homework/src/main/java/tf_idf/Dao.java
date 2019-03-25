@@ -21,6 +21,9 @@ public class Dao {
     // Количество слов статьи
     private static final String SQL_GET_ARTICLE_WORD_COUNT = "SELECT COUNT(*) FROM words_mystem WHERE articles_id = ?;";
 
+    // Количество слов во всех статьях
+    private static final String SQL_GET_ALL_ARTICLES_WORD_COUNT = "SELECT COUNT(*) FROM words_mystem WHERE;";
+
     //Количество статей
     private static final String SQL_GET_ALL_ARTICLES_COUNT = "SELECT count(*) FROM articles;";
 
@@ -59,6 +62,10 @@ public class Dao {
 
     public Integer getArticleWordCount(String articleId) {
         return jdbcTemplate.queryForObject(SQL_GET_ARTICLE_WORD_COUNT, new Object[]{articleId}, new int[]{Types.OTHER}, Integer.class);
+    }
+
+    public Integer getAllArticlesWordCount(String articleId) {
+        return jdbcTemplate.queryForObject(SQL_GET_ALL_ARTICLES_WORD_COUNT, new Object[]{articleId}, new int[]{Types.OTHER}, Integer.class);
     }
 
     public Integer getAllArticlesCount() {
