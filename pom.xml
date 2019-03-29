@@ -30,6 +30,7 @@
         <module>retrofit</module>
         <module>jdbi</module>
         <module>ok_http</module>
+        <module>mqtt_rest_api</module>
     </modules>
 
     <dependencies>
@@ -37,7 +38,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.14.8</version>
+            <version>1.18.6</version>
         </dependency>
     </dependencies>
 </project>

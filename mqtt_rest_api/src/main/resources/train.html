@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <style>
+        #train {
+            position: relative;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<img id="train" src="https://js.cx/clipart/train.gif">
+
+<script>
+    var pixelsArray;
+    var leftMargin;
+    var rightMargin;
+    var topMargin;
+    var bottomMargin;
+    setInterval(function () {
+        loadData();
+        console.log(train.style.left);
+        train.style.left = leftMargin + 'px';
+        train.style.right = rightMargin + 'px';
+        train.style.top = topMargin + 'px';
+        train.style.bottom = bottomMargin + 'px';
+    }, 100);
+
+    function loadData() {
+        var httpClient = new XMLHttpRequest();
+        httpClient.open('GET', 'http://localhost:8080/data.json', false);
+        httpClient.send();
+
+        if (httpClient.status !== 200) {
+            alert('Error: ' + httpClient.status + ': ' + httpClient.statusText);
+        } else {
+            pixelsArray = JSON.parse(httpClient.responseText);
+            leftMargin = pixelsArray[0];
+            rightMargin = pixelsArray[1];
+            topMargin = pixelsArray[2];
+            bottomMargin = pixelsArray[3];
+        }
+    }
+</script>
+</body>
+</html>
