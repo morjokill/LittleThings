@@ -1,0 +1,1 @@
+java -cp "mqtt_rest_api-1.0.jar;libs/*" mqtt.example.Main E:\vsya\java\LittleThings\mqtt_rest_api\src\main\resources
