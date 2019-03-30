@@ -1,6 +1,7 @@
 package mqtt.example.mqtt_client;
 
 import mqtt.example.container.Data;
+import mqtt.example.container.RawDataContainer;
 import mqtt.example.model.MockData;
 import org.eclipse.paho.client.mqttv3.*;
 
@@ -9,14 +10,17 @@ import java.util.UUID;
 
 public class SimpleMqttClient {
     private static final String PUBLISHER_ID = UUID.randomUUID().toString();
-    private static final String TOPIC = "TOPIC";
+    private String address;
+    private String topic;
     private IMqttClient client;
 
-    public SimpleMqttClient(String address) throws MqttException {
-        initClient(address);
+    public SimpleMqttClient(String address, String topic) throws MqttException {
+        this.address = address;
+        this.topic = topic;
+        initClient();
     }
 
-    private void initClient(String address) throws MqttException {
+    private void initClient() throws MqttException {
         this.client = new MqttClient(address, PUBLISHER_ID);
         connectToMqtt();
         executeReceiveTask();
@@ -31,9 +35,10 @@ public class SimpleMqttClient {
     }
 
     private void executeReceiveTask() throws MqttException {
-        client.subscribe(TOPIC, (topic, msg) -> {
+        client.subscribe(topic, (topic, msg) -> {
             byte[] payload = msg.getPayload();
 //            DataContainer.setData(getDataFromBytePayload(payload));
+            RawDataContainer.setData(payload);
             System.out.println("Message came: " + Arrays.toString(payload));
         });
     }
@@ -49,6 +54,11 @@ public class SimpleMqttClient {
         MqttMessage msg = new MqttMessage(payloadToPublish);
         msg.setQos(0);
         msg.setRetained(true);
-        client.publish(TOPIC, msg);
+        client.publish(topic, msg);
+    }
+
+    public static void main(String[] args) throws Exception {
+        SimpleMqttClient publisher = new SimpleMqttClient("tcp://iot.eclipse.org:1883", "TOPIC");
+        publisher.publishMsg(new byte[]{35, 23, 89, 23});
     }
 }

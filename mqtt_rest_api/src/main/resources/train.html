@@ -31,7 +31,7 @@
 
     function loadData() {
         var httpClient = new XMLHttpRequest();
-        httpClient.open('GET', 'http://localhost:8080/data.json', false);
+        httpClient.open('GET', 'http://localhost:7878/data.json', false);
         httpClient.send();
 
         if (httpClient.status !== 200) {
