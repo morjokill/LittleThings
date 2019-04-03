@@ -32,6 +32,7 @@
         <module>ok_http</module>
         <module>mqtt_rest_api</module>
         <module>actual_little_things</module>
+        <module>spring_boot</module>
     </modules>
 
     <dependencies>
