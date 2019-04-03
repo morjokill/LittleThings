@@ -33,6 +33,7 @@
         <module>mqtt_rest_api</module>
         <module>actual_little_things</module>
         <module>spring_boot</module>
+        <module>spring_boot_single_page</module>
     </modules>
 
     <dependencies>
