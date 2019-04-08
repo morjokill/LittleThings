@@ -4,7 +4,7 @@ CREATE TABLE articles(
   keywords character varying(255),
   content text,
   url character varying(255),
-  student_id integer,
+  student_id integer
 );
 
 CREATE TABLE words_mystem (

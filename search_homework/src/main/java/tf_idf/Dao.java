@@ -41,6 +41,14 @@ public class Dao {
 
     private static final String SQL_GET_TF_IDF_FOR_TERM_IN_ARTICLE = "SELECT tf_idf FROM article_term WHERE term_id = ? AND article_id = ?;";
 
+    private static final String SQL_GET_EVERY_TERM_IN_ARTICLE_FREQ = "SELECT count(article_id) FROM terms_list LEFT OUTER JOIN article_term a " +
+            "    ON terms_list.term_id = a.term_id AND article_id = ? " +
+            " GROUP BY article_id, term_text ORDER BY term_text ASC;";
+
+    private static final String SQL_GET_TERM_COUNT = "SELECT count(*) FROM terms_list;";
+
+    private static final String SQL_GET_ALL_TERM_ORDERED_BY_ASC = "SELECT term_text FROM terms_list ORDER BY term_text ASC;";
+
     private JdbcTemplate jdbcTemplate;
 
     public Dao() {
@@ -90,5 +98,17 @@ public class Dao {
 
     public List<Article> getArticlesWithWordTerm(String term) {
         return jdbcTemplate.query(SQL_GET_ALL_ARTICLES_WITH_WORD_TERM, new Object[]{term}, new BeanPropertyRowMapper<>(Article.class));
+    }
+
+    public List<Integer> getEveryTermCountInArticle(String articleId) {
+        return jdbcTemplate.queryForList(SQL_GET_EVERY_TERM_IN_ARTICLE_FREQ, new Object[]{articleId}, new int[]{Types.OTHER}, Integer.class);
+    }
+
+    public int getTermsCount() {
+        return jdbcTemplate.queryForObject(SQL_GET_TERM_COUNT, Integer.class);
+    }
+
+    public List<String> getTermsOrderedByAsc() {
+        return jdbcTemplate.queryForList(SQL_GET_ALL_TERM_ORDERED_BY_ASC, String.class);
     }
 }

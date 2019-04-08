@@ -89,7 +89,7 @@ public class Main {
         return count;
     }
 
-    private static double calculateCosineSimilarity(double[] firstVector, double[] secondVector) {
+    public static double calculateCosineSimilarity(double[] firstVector, double[] secondVector) {
         double dotProd = 0;
         double sqA = 0;
         double sqB = 0;
