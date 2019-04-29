@@ -20,4 +20,12 @@ public class CollectionKeeper {
             add("a");
         }};
     }
+
+    public static List<Integer> getIntCollection() {
+        return new ArrayList<Integer>() {{
+            add(3);
+            add(5);
+            add(1329);
+        }};
+    }
 }
