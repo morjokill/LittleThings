@@ -36,6 +36,12 @@
             <artifactId>ojdbc8</artifactId>
             <version>12.2.0.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.6</version>
+        </dependency>
     </dependencies>
 
 </project>
