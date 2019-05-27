@@ -7,8 +7,7 @@ public class Main {
         System.out.println(getBit(myByte, 7));
     }
 
-    public static int getBit(byte myByte, int position)
-    {
+    public static int getBit(byte myByte, int position) {
         return (myByte >> position) & 1;
     }
 }

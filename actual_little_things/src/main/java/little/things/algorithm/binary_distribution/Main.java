@@ -1,4 +1,4 @@
-package little.things.binary_distribution;
+package little.things.algorithm.binary_distribution;
 
 public class Main {
     public static void main(String[] args) {

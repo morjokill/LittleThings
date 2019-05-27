@@ -6,12 +6,14 @@ public enum Fruits implements Eatable {
         public void eat() {
             System.out.println("Eating very " + getColor() + " banana");
         }
-    }, ORANGE("orange") {
+    },
+    ORANGE("orange") {
         @Override
         public void eat() {
             System.out.println("Eating very " + getColor() + " orange");
         }
-    }, APPLE("green") {
+    },
+    APPLE("green") {
         @Override
         public void eat() {
             System.out.println("Eating very " + getColor() + " apple");

@@ -1,4 +1,4 @@
-package little.things.palindrom;
+package little.things.algorithm.palindrom;
 
 public class Main {
     public static void main(String[] args) {

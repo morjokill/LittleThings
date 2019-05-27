@@ -21,8 +21,8 @@ public class Trap {
                 String fileSuffix;
                 if (isOriented) fileSuffix = "or";
                 else fileSuffix = "un";
-                scIn = new Scanner(new File("actual_little_things/src/main/resources/trap/in/" + fileN));
-                scOut = new FileWriter(new File("actual_little_things/src/main/resources/trap/out/" + fileN + fileSuffix));
+                scIn = new Scanner(new File("actual_little_things/src/main/resources/trapeze/in/" + fileN));
+                scOut = new FileWriter(new File("actual_little_things/src/main/resources/trapeze/out/" + fileN + fileSuffix));
                 int n = scIn.nextInt();
                 int[] traps = new int[n * 3];
                 int index = 0;
