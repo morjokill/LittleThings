@@ -1,0 +1,15 @@
+CREATE FUNCTION TEST_PROCEDURE()
+  RETURNS VARCHAR AS $$
+DECLARE
+  return_line VARCHAR = 'русские вперед!';
+BEGIN
+  RETURN return_line;
+END; $$
+LANGUAGE 'plpgsql';
+
+CREATE FUNCTION TEST_WITH_PARAM(param VARCHAR)
+  RETURNS VARCHAR AS $$
+BEGIN
+  RETURN param;
+END; $$
+LANGUAGE 'plpgsql';
