@@ -1,16 +1,17 @@
 package little.things.streams;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Peek {
+public class FindFirst {
     public static void main(String[] args) {
         List<String> list = CollectionKeeper.getCollection();
         System.out.println("All elements: " + list);
 
-        List<String> collect = list.stream()
-                .peek(System.out::println)
-                .collect(Collectors.toList());
-        System.out.println(collect);
+        Optional<String> first = list.stream()
+                .findFirst();
+        //noinspection ConstantConditions
+        System.out.println("First element: " + first.get());
     }
 }

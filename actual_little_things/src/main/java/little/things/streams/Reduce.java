@@ -1,8 +1,22 @@
 package little.things.streams;
 
+import java.util.List;
+import java.util.Optional;
+
 public class Reduce {
     public static void main(String[] args) {
-        System.out.println(CollectionKeeper.getCollection().stream().reduce(String::concat).toString());
-        System.out.println(CollectionKeeper.getIntCollection().stream().reduce(Integer::sum).toString());
+        List<String> stringCollection = CollectionKeeper.getCollection();
+        System.out.println("String elements: " + stringCollection);
+        Optional<String> concat = stringCollection.stream()
+                .reduce(String::concat);
+        //noinspection ConstantConditions
+        System.out.println("Concat result: " + concat.get());
+
+        List<Integer> intCollection = CollectionKeeper.getIntCollection();
+        System.out.println("Integer elements: " + intCollection);
+        Optional<Integer> sum = intCollection.stream()
+                .reduce(Integer::sum);
+        //noinspection ConstantConditions
+        System.out.println("Sum result: " + sum.get());
     }
 }
