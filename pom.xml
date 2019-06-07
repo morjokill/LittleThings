@@ -35,6 +35,7 @@
         <module>spring_boot</module>
         <module>spring_boot_single_page</module>
         <module>jersey_client</module>
+        <module>spring_data_jpa</module>
     </modules>
 
     <dependencies>
