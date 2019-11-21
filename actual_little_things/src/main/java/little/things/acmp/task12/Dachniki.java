@@ -46,7 +46,7 @@ public class Dachniki {
         return true;
     }
 
-    private static boolean checkIfPointFitsInLine(int x, int y, int x1, int y1, int x2, int y2) {
+    private static boolean checkIfPointFitsInLine(long x, long y, long x1, long y1, long x2, long y2) {
         return x * (y1 - y2) + y * (x2 - x1) + (x1 * y2 - x2 * y1) <= 0;
     }
 }
